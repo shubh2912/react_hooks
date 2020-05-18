@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import Home from './components/Home';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Home />
-  </React.StrictMode>,
+  <Home />,
   document.getElementById('root')
 );

@@ -1,33 +1,31 @@
 import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import axios from 'axios';
-import { findAllByDisplayValue } from '@testing-library/react';
-
 
 function Home() {
-  const [tableData, setTableData] = useState([]);
-
+  const [restList, setRestList] = useState([]);
+  const [value, setValue] = useState(0);
 
   useEffect(() => {
-    if (tableData.length === 0)
-      axios.get("http://localhost:3006/artists").then(res => setTableData(res.data))
+    axios("https://demo8141926.mockable.io/getRestaurantList")
+      .then(res => setRestList(res.data))
+      .catch(err => console.log(err))
   })
 
-  return (<div>
-    <table border="2px solid black">
-      <tr style={{ "background-color": "red" }} >
-        <td >S.No</td>
-        <td>Name</td>
-        <td>Cover</td>
-      </tr>
-      {tableData.map((item) =>
-        <tr>
-          <td>{item.id}</td>
-          <td>{item.name}</td>
-          <td>{item.cover}</td>
-        </tr>
-      )}
-    </table>
-  </div>
+  return (
+    <div>
+      {`Value : ${value}`}<br />
+      <button onClick={() => setValue(value + 1)}>Increment</button>
+      <button onClick={() => setValue(value - 1)}>Decrement</button>
+      <h1>List of Restaurant</h1>
+      {
+        restList.map((item) => {
+          return <div>
+            <h3>{item.name}</h3>
+          </div>
+        })
+      }
+    </div >
   )
 }
 
